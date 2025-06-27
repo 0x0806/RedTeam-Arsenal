@@ -1,0 +1,719 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Professional RedTeam Tools Platform - Comprehensive penetration testing and security assessment tools">
+    <meta name="keywords" content="redteam, penetration testing, cybersecurity, security tools, ethical hacking">
+    <meta name="author" content="0x0806">
+    <meta name="robots" content="noindex, nofollow">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>RedTeam Arsenal - Professional RedTeam Tools Platform</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <i class="fas fa-shield-virus"></i>
+                <h1>RedTeam Arsenal</h1>
+            </div>
+            <div class="developer">
+                <span>Developed by: <strong>0x0806</strong></span>
+            </div>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="nav-tabs">
+            <button class="tab-button active" data-tab="generators">Payload Generators</button>
+            <button class="tab-button" data-tab="exploits">Exploit Tools</button>
+            <button class="tab-button" data-tab="shells">Reverse Shells</button>
+            <button class="tab-button" data-tab="reconnaissance">Reconnaissance</button>
+            <button class="tab-button" data-tab="enumeration">Enumeration</button>
+            <button class="tab-button" data-tab="utilities">Utilities</button>
+            <button class="tab-button" data-tab="crypto">Cryptography</button>
+            <button class="tab-button" data-tab="network">Network Tools</button>
+            <button class="tab-button" data-tab="wireless">Wireless</button>
+            <button class="tab-button" data-tab="advanced">Advanced Tools</button>
+            <button class="tab-button" data-tab="osint">OSINT</button>
+            <button class="tab-button" data-tab="webapp">Web Application</button>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Payload Generators Tab -->
+            <div id="generators" class="tab-content active">
+                <h2><i class="fas fa-code"></i> Payload Generators</h2>
+                <div class="tools-grid">
+                    <div class="tool-card">
+                        <h3>MSF Venom Payload Generator</h3>
+                        <div class="tool-form">
+                            <select id="msfPayload">
+                                <option value="windows/meterpreter/reverse_tcp">Windows Meterpreter Reverse TCP</option>
+                                <option value="linux/x86/meterpreter/reverse_tcp">Linux x86 Meterpreter</option>
+                                <option value="android/meterpreter/reverse_tcp">Android Meterpreter</option>
+                                <option value="php/meterpreter_reverse_tcp">PHP Meterpreter</option>
+                            </select>
+                            <input type="text" id="msfLhost" placeholder="LHOST (Your IP)" value="10.10.10.10">
+                            <input type="text" id="msfLport" placeholder="LPORT" value="4444">
+                            <select id="msfFormat">
+                                <option value="exe">EXE</option>
+                                <option value="elf">ELF</option>
+                                <option value="apk">APK</option>
+                                <option value="php">PHP</option>
+                                <option value="war">WAR</option>
+                            </select>
+                            <button onclick="generateMsfPayload()">Generate Payload</button>
+                            <textarea id="msfOutput" readonly placeholder="Generated payload command will appear here..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="tool-card">
+                        <h3>XSS Payload Generator</h3>
+                        <div class="tool-form">
+                            <select id="xssType">
+                                <option value="alert">Alert Box</option>
+                                <option value="cookie">Cookie Stealer</option>
+                                <option value="keylogger">Keylogger</option>
+                                <option value="redirect">Redirect</option>
+                            </select>
+                            <input type="text" id="xssParam" placeholder="Parameter (for cookie stealer/redirect)">
+                            <button onclick="generateXSS()">Generate XSS</button>
+                            <textarea id="xssOutput" readonly placeholder="XSS payload will appear here..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="tool-card">
+                        <h3>SQL Injection Payloads</h3>
+                        <div class="tool-form">
+                            <select id="sqlType">
+                                <option value="union">UNION Based</option>
+                                <option value="boolean">Boolean Based</option>
+                                <option value="time">Time Based</option>
+                                <option value="error">Error Based</option>
+                            </select>
+                            <select id="sqlDb">
+                                <option value="mysql">MySQL</option>
+                                <option value="mssql">MSSQL</option>
+                                <option value="oracle">Oracle</option>
+                                <option value="postgresql">PostgreSQL</option>
+                            </select>
+                            <button onclick="generateSQL()">Generate SQL Payload</button>
+                            <textarea id="sqlOutput" readonly placeholder="SQL injection payload will appear here..."></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exploit Tools Tab -->
+            <div id="exploits" class="tab-content">
+                <h2><i class="fas fa-bug"></i> Exploit Tools</h2>
+                <div class="tools-grid">
+                    <div class="tool-card">
+                        <h3>Buffer Overflow Pattern Generator</h3>
+                        <div class="tool-form">
+                            <input type="number" id="patternLength" placeholder="Pattern Length" value="1024">
+                            <button onclick="generatePattern()">Generate Pattern</button>
+                            <button onclick="findOffset()">Find Offset</button>
+                            <input type="text" id="crashValue" placeholder="Value at crash (for offset)">
+                            <textarea id="patternOutput" readonly placeholder="Pattern will appear here..."></textarea>
+                            <div id="offsetResult"></div>
+                        </div>
+                    </div>
+
+                    <div class="tool-card">
+                        <h3>Shellcode Generator</h3>
+                        <div class="tool-form">
+                            <select id="shellcodeArch">
+                                <option value="x86">x86</option>
+                                <option value="x64">x64</option>
+                            </select>
+                            <select id="shellcodeType">
+                                <option value="execve">Execute /bin/sh</option>
+                                <option value="bind">Bind Shell</option>
+                                <option value="reverse">Reverse Shell</option>
+                            </select>
+                            <input type="text" id="shellcodePort" placeholder="Port (for bind/reverse)" value="4444">
+                            <button onclick="generateShellcode()">Generate Shellcode</button>
+                            <textarea id="shellcodeOutput" readonly placeholder="Shellcode will appear here..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="tool-card">
+                        <h3>Format String Exploit</h3>
+                        <div class="tool-form">
+                            <input type="number" id="formatOffset" placeholder="Format String Offset" value="6">
+                            <input type="text" id="targetAddress" placeholder="Target Address (hex)" value="0x08048000">
+                            <input type="text" id="writeValue" placeholder="Value to Write (hex)" value="0x41414141">
+                            <button onclick="generateFormatString()">Generate Exploit</button>
+                            <textarea id="formatOutput" readonly placeholder="Format string exploit will appear here..."></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reverse Shells Tab -->
+            <div id="shells" class="tab-content">
+                <h2><i class="fas fa-terminal"></i> Reverse Shell Generators</h2>
+                <div class="tools-grid">
+                    <div class="tool-card">
+                        <h3>Reverse Shell Generator</h3>
+                        <div class="tool-form">
+                            <input type="text" id="shellLhost" placeholder="Your IP Address" value="10.10.10.10">
+                            <input type="text" id="shellLport" placeholder="Your Port" value="4444">
+                            <select id="shellType">
+                                <option value="bash">Bash</option>
+                                <option value="python">Python</option>
+                                <option value="php">PHP</option>
+                                <option value="perl">Perl</option>
+                                <option value="ruby">Ruby</option>
+                                <option value="nc">Netcat</option>
+                                <option value="powershell">PowerShell</option>
+                                <option value="java">Java</option>
+                            </select>
+                            <button onclick="generateReverseShell()">Generate Shell</button>
+                            <textarea id="shellOutput" readonly placeholder="Reverse shell command will appear here..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="tool-card">
+                        <h3>Web Shell Generator</h3>
+                        <div class="tool-form">
+                            <select id="webShellType">
+                                <option value="php">PHP Web Shell</option>
+                                <option value="asp">ASP Web Shell</option>
+                                <option value="jsp">JSP Web Shell</option>
+                                <option value="aspx">ASPX Web Shell</option>
+                            </select>
+                            <input type="text" id="webShellPassword" placeholder="Password" value="admin">
+                            <button onclick="generateWebShell()">Generate Web Shell</button>
+                            <textarea id="webShellOutput" readonly placeholder="Web shell code will appear here..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="tool-card">
+                        <h3>Encoded Shell Generator</h3>
+                        <div class="tool-form">
+                            <select id="encodingType">
+                                <option value="base64">Base64</option>
+                                <option value="url">URL Encoding</option>
+                                <option value="hex">Hex Encoding</option>
+                                <option value="unicode">Unicode</option>
+                            </select>
+                            <textarea id="shellToEncode" placeholder="Enter shell command to encode..."></textarea>
+                            <button onclick="encodeShell()">Encode Shell</button>
+                            <textarea id="encodedShellOutput" readonly placeholder="Encoded shell will appear here..."></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reconnaissance Tab -->
+            <div id="reconnaissance" class="tab-content">
+                <h2><i class="fas fa-search"></i> Reconnaissance Tools</h2>
+                <div class="tools-grid">
+                    <div class="tool-card">
+                        <h3>Subdomain Enumeration</h3>
+                        <div class="tool-form">
+                            <input type="text" id="domain" placeholder="Target Domain (e.g., example.com)">
+                            <select id="subdomainTool">
+                                <option value="subfinder">Subfinder</option>
+                                <option value="amass">Amass</option>
+                                <option value="assetfinder">AssetFinder</option>
+                                <option value="sublist3r">Sublist3r</option>
+                            </select>
+                            <button onclick="generateSubdomainCommand()">Generate Command</button>
+                            <textarea id="subdomainOutput" readonly placeholder="Subdomain enumeration command will appear here..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="tool-card">
+                        <h3>Port Scanner</h3>
+                        <div class="tool-form">
+                            <input type="text" id="scanTarget" placeholder="Target IP/Domain">
+                            <select id="scanType">
+                                <option value="tcp">TCP Connect Scan</option>
+                                <option value="syn">SYN Stealth Scan</option>
+                                <option value="udp">UDP Scan</option>
+                                <option value="comprehensive">Comprehensive Scan</option>
+                            </select>
+                            <input type="text" id="portRange" placeholder="Port Range (e.g., 1-1000)" value="1-65535">
+                            <button onclick="generateNmapCommand()">Generate Nmap Command</button>
+                            <textarea id="nmapOutput" readonly placeholder="Nmap command will appear here..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="tool-card">
+                        <h3>DNS Enumeration</h3>
+                        <div class="tool-form">
+                            <input type="text" id="dnsTarget" placeholder="Target Domain">
+                            <select id="dnsType">
+                                <option value="A">A Records</option>
+                                <option value="AAAA">AAAA Records</option>
+                                <option value="MX">MX Records</option>
+                                <option value="NS">NS Records</option>
+                                <option value="TXT">TXT Records</option>
+                                <option value="ALL">All Records</option>
+                            </select>
+                            <button onclick="generateDNSCommand()">Generate DNS Command</button>
+                            <textarea id="dnsOutput" readonly placeholder="DNS enumeration command will appear here..."></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Enumeration Tab -->
+            <div id="enumeration" class="tab-content">
+                <h2><i class="fas fa-list"></i> Service Enumeration</h2>
+                <div class="tools-grid">
+                    <div class="tool-card">
+                        <h3>Web Directory Bruteforce</h3>
+                        <div class="tool-form">
+                            <input type="text" id="webTarget" placeholder="Target URL (http://example.com)">
+                            <select id="dirTool">
+                                <option value="gobuster">Gobuster</option>
+                                <option value="dirbuster">DirBuster</option>
+                                <option value="ffuf">FFUF</option>
+                                <option value="dirb">Dirb</option>
+                            </select>
+                            <select id="wordlist">
+                                <option value="common">Common.txt</option>
+                                <option value="medium">Medium.txt</option>
+                                <option value="big">Big.txt</option>
+                                <option value="directory-list">Directory-list-2.3</option>
+                            </select>
+                            <button onclick="generateDirBruteCommand()">Generate Command</button>
+                            <textarea id="dirBruteOutput" readonly placeholder="Directory bruteforce command will appear here..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="tool-card">
+                        <h3>SMB Enumeration</h3>
+                        <div class="tool-form">
+                            <input type="text" id="smbTarget" placeholder="Target IP">
+                            <select id="smbTool">
+                                <option value="smbclient">SMBClient</option>
+                                <option value="enum4linux">Enum4linux</option>
+                                <option value="smbmap">SMBMap</option>
+                                <option value="crackmapexec">CrackMapExec</option>
+                            </select>
+                            <button onclick="generateSMBCommand()">Generate Command</button>
+                            <textarea id="smbOutput" readonly placeholder="SMB enumeration command will appear here..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="tool-card">
+                        <h3>SQL Database Enumeration</h3>
+                        <div class="tool-form">
+                            <input type="text" id="dbTarget" placeholder="Target URL/IP">
+                            <select id="dbType">
+                                <option value="mysql">MySQL</option>
+                                <option value="mssql">MSSQL</option>
+                                <option value="oracle">Oracle</option>
+                                <option value="postgresql">PostgreSQL</option>
+                            </select>
+                            <input type="text" id="dbUser" placeholder="Username (optional)">
+                            <button onclick="generateSQLMapCommand()">Generate SQLMap Command</button>
+                            <textarea id="sqlmapOutput" readonly placeholder="SQLMap command will appear here..."></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Utilities Tab -->
+            <div id="utilities" class="tab-content">
+                <h2><i class="fas fa-tools"></i> Utility Tools</h2>
+                <div class="tools-grid">
+                    <div class="tool-card">
+                        <h3>Hash Generator/Cracker</h3>
+                        <div class="tool-form">
+                            <input type="text" id="hashInput" placeholder="Enter text to hash or hash to identify">
+                            <select id="hashType">
+                                <option value="md5">MD5</option>
+                                <option value="sha1">SHA1</option>
+                                <option value="sha256">SHA256</option>
+                                <option value="sha512">SHA512</option>
+                                <option value="identify">Identify Hash</option>
+                            </select>
+                            <button onclick="processHash()">Process Hash</button>
+                            <textarea id="hashOutput" readonly placeholder="Hash result will appear here..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="tool-card">
+                        <h3>Base64 Encoder/Decoder</h3>
+                        <div class="tool-form">
+                            <textarea id="base64Input" placeholder="Enter text to encode/decode..."></textarea>
+                            <div class="button-group">
+                                <button onclick="encodeBase64()">Encode</button>
+                                <button onclick="decodeBase64()">Decode</button>
+                            </div>
+                            <textarea id="base64Output" readonly placeholder="Result will appear here..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="tool-card">
+                        <h3>URL Encoder/Decoder</h3>
+                        <div class="tool-form">
+                            <textarea id="urlInput" placeholder="Enter URL to encode/decode..."></textarea>
+                            <div class="button-group">
+                                <button onclick="encodeURL()">Encode</button>
+                                <button onclick="decodeURL()">Decode</button>
+                            </div>
+                            <textarea id="urlOutput" readonly placeholder="Result will appear here..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="tool-card">
+                        <h3>Password Generator</h3>
+                        <div class="tool-form">
+                            <input type="number" id="passLength" placeholder="Password Length" value="12">
+                            <label><input type="checkbox" id="includeUpper" checked> Uppercase</label>
+                            <label><input type="checkbox" id="includeLower" checked> Lowercase</label>
+                            <label><input type="checkbox" id="includeNumbers" checked> Numbers</label>
+                            <label><input type="checkbox" id="includeSymbols" checked> Symbols</label>
+                            <button onclick="generatePassword()">Generate Password</button>
+                            <input type="text" id="passwordOutput" readonly placeholder="Generated password will appear here...">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cryptography Tab -->
+            <div id="crypto" class="tab-content">
+                <h2><i class="fas fa-lock"></i> Cryptography Tools</h2>
+                <div class="tools-grid">
+                    <div class="tool-card">
+                        <h3>RSA Key Generator</h3>
+                        <div class="tool-form">
+                            <select id="rsaKeySize">
+                                <option value="1024">1024 bits</option>
+                                <option value="2048" selected>2048 bits</option>
+                                <option value="4096">4096 bits</option>
+                            </select>
+                            <button onclick="generateRSAKeys()">Generate RSA Key Pair</button>
+                            <textarea id="rsaPublicKey" readonly placeholder="Public key will appear here..."></textarea>
+                            <textarea id="rsaPrivateKey" readonly placeholder="Private key will appear here..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="tool-card">
+                        <h3>Certificate Analysis</h3>
+                        <div class="tool-form">
+                            <input type="text" id="certDomain" placeholder="Domain (e.g., example.com)">
+                            <button onclick="generateCertCommand()">Generate SSL Analysis Command</button>
+                            <textarea id="certOutput" readonly placeholder="SSL certificate analysis commands will appear here..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="tool-card">
+                        <h3>Hash Collision Generator</h3>
+                        <div class="tool-form">
+                            <select id="collisionType">
+                                <option value="md5">MD5 Collision</option>
+                                <option value="sha1">SHA1 Collision</option>
+                            </select>
+                            <input type="text" id="collisionSeed" placeholder="Seed value">
+                            <button onclick="generateCollision()">Generate Hash Collision</button>
+                            <textarea id="collisionOutput" readonly placeholder="Hash collision data will appear here..."></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Network Tools Tab -->
+            <div id="network" class="tab-content">
+                <h2><i class="fas fa-network-wired"></i> Network Analysis Tools</h2>
+                <div class="tools-grid">
+                    <div class="tool-card">
+                        <h3>Packet Capture Commands</h3>
+                        <div class="tool-form">
+                            <input type="text" id="captureInterface" placeholder="Interface (e.g., eth0)" value="eth0">
+                            <select id="captureFilter">
+                                <option value="tcp">TCP Traffic</option>
+                                <option value="udp">UDP Traffic</option>
+                                <option value="icmp">ICMP Traffic</option>
+                                <option value="http">HTTP Traffic</option>
+                                <option value="dns">DNS Traffic</option>
+                            </select>
+                            <input type="text" id="captureHost" placeholder="Target Host (optional)">
+                            <button onclick="generatePacketCapture()">Generate Capture Command</button>
+                            <textarea id="captureOutput" readonly placeholder="Packet capture commands will appear here..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="tool-card">
+                        <h3>Network Pivoting</h3>
+                        <div class="tool-form">
+                            <input type="text" id="pivotSource" placeholder="Source IP" value="192.168.1.100">
+                            <input type="text" id="pivotTarget" placeholder="Target Network" value="10.0.0.0/24">
+                            <input type="text" id="pivotPort" placeholder="Pivot Port" value="8080">
+                            <select id="pivotTool">
+                                <option value="ssh">SSH Tunnel</option>
+                                <option value="socat">Socat</option>
+                                <option value="netsh">Netsh (Windows)</option>
+                                <option value="chisel">Chisel</option>
+                            </select>
+                            <button onclick="generatePivotCommand()">Generate Pivot Command</button>
+                            <textarea id="pivotOutput" readonly placeholder="Network pivoting commands will appear here..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="tool-card">
+                        <h3>ARP Spoofing Commands</h3>
+                        <div class="tool-form">
+                            <input type="text" id="arpTarget" placeholder="Target IP" value="192.168.1.100">
+                            <input type="text" id="arpGateway" placeholder="Gateway IP" value="192.168.1.1">
+                            <input type="text" id="arpInterface" placeholder="Interface" value="eth0">
+                            <button onclick="generateARPSpoof()">Generate ARP Spoof Commands</button>
+                            <textarea id="arpOutput" readonly placeholder="ARP spoofing commands will appear here..."></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Wireless Tab -->
+            <div id="wireless" class="tab-content">
+                <h2><i class="fas fa-wifi"></i> Wireless Security Tools</h2>
+                <div class="tools-grid">
+                    <div class="tool-card">
+                        <h3>WiFi Reconnaissance</h3>
+                        <div class="tool-form">
+                            <input type="text" id="wifiInterface" placeholder="Wireless Interface" value="wlan0">
+                            <select id="wifiMode">
+                                <option value="monitor">Enable Monitor Mode</option>
+                                <option value="scan">Network Scan</option>
+                                <option value="capture">Capture Handshakes</option>
+                                <option value="deauth">Deauth Attack</option>
+                            </select>
+                            <input type="text" id="wifiTarget" placeholder="Target BSSID (for specific attacks)">
+                            <button onclick="generateWiFiCommand()">Generate WiFi Command</button>
+                            <textarea id="wifiOutput" readonly placeholder="WiFi commands will appear here..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="tool-card">
+                        <h3>Bluetooth Scanner</h3>
+                        <div class="tool-form">
+                            <select id="btTool">
+                                <option value="hcitool">HCI Tool Scan</option>
+                                <option value="bluetoothctl">Bluetooth Control</option>
+                                <option value="recon-ng">Recon-ng Bluetooth</option>
+                            </select>
+                            <input type="text" id="btTarget" placeholder="Target MAC (optional)">
+                            <button onclick="generateBluetoothCommand()">Generate Bluetooth Command</button>
+                            <textarea id="btOutput" readonly placeholder="Bluetooth commands will appear here..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="tool-card">
+                        <h3>Evil Twin AP Generator</h3>
+                        <div class="tool-form">
+                            <input type="text" id="evilSSID" placeholder="SSID Name" value="Free_WiFi">
+                            <input type="text" id="evilInterface" placeholder="Interface" value="wlan0">
+                            <select id="evilSecurity">
+                                <option value="open">Open (No Security)</option>
+                                <option value="wpa2">WPA2-PSK</option>
+                                <option value="wep">WEP</option>
+                            </select>
+                            <input type="text" id="evilPassword" placeholder="Password (if secured)">
+                            <button onclick="generateEvilTwin()">Generate Evil Twin Commands</button>
+                            <textarea id="evilOutput" readonly placeholder="Evil twin AP commands will appear here..."></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Advanced Tools Tab -->
+            <div id="advanced" class="tab-content">
+                <h2><i class="fas fa-rocket"></i> Advanced Tools</h2>
+                <div class="tools-grid">
+                    <div class="tool-card">
+                        <h3>Payload Obfuscation</h3>
+                        <div class="tool-form">
+                            <textarea id="obfuscateInput" placeholder="Enter payload to obfuscate..."></textarea>
+                            <select id="obfuscateMethod">
+                                <option value="base64">Base64 Encoding</option>
+                                <option value="hex">Hexadecimal</option>
+                                <option value="gzip">GZip Compression</option>
+                                <option value="powershell">PowerShell Encoding</option>
+                            </select>
+                            <button onclick="obfuscatePayload()">Obfuscate Payload</button>
+                            <textarea id="obfuscateOutput" readonly placeholder="Obfuscated payload will appear here..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="tool-card">
+                        <h3>Persistence Generator</h3>
+                        <div class="tool-form">
+                            <select id="persistenceOS">
+                                <option value="linux">Linux</option>
+                                <option value="windows">Windows</option>
+                            </select>
+                            <select id="persistenceMethod">
+                                <option value="cron">Cron Jobs (Linux)</option>
+                                <option value="service">System Service</option>
+                                <option value="bashrc">Shell RC Files</option>
+                                <option value="registry">Registry (Windows)</option>
+                                <option value="task">Scheduled Tasks</option>
+                                <option value="wmi">WMI Events</option>
+                            </select>
+                            <input type="text" id="persistencePayload" placeholder="Payload path" value="/tmp/backdoor">
+                            <button onclick="generatePersistence()">Generate Persistence</button>
+                            <textarea id="persistenceOutput" readonly placeholder="Persistence commands will appear here..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="tool-card">
+                        <h3>Privilege Escalation</h3>
+                        <div class="tool-form">
+                            <select id="privescOS">
+                                <option value="linux">Linux</option>
+                                <option value="windows">Windows</option>
+                            </select>
+                            <select id="privescMethod">
+                                <option value="sudo">SUDO/SUID (Linux)</option>
+                                <option value="kernel">Kernel Exploits</option>
+                                <option value="cron">Cron Jobs</option>
+                                <option value="token">Token Impersonation</option>
+                                <option value="service">Service Exploits</option>
+                                <option value="registry">Registry Exploits</option>
+                            </select>
+                            <button onclick="generatePrivEsc()">Generate PrivEsc Commands</button>
+                            <textarea id="privescOutput" readonly placeholder="Privilege escalation commands will appear here..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="tool-card">
+                        <h3>Advanced Network Scanner</h3>
+                        <div class="tool-form">
+                            <input type="text" id="advancedTarget" placeholder="Target IP/CIDR (e.g., 192.168.1.0/24)">
+                            <select id="advancedScanType">
+                                <option value="masscan">Masscan</option>
+                                <option value="zmap">ZMap</option>
+                                <option value="rustscan">RustScan</option>
+                                <option value="naabu">Naabu</option>
+                            </select>
+                            <button onclick="generateAdvancedScan()">Generate Scan Commands</button>
+                            <textarea id="advancedScanOutput" readonly placeholder="Advanced scan commands will appear here..."></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- OSINT Tab -->
+            <div id="osint" class="tab-content">
+                <h2><i class="fas fa-search-plus"></i> OSINT Tools</h2>
+                <div class="tools-grid">
+                    <div class="tool-card">
+                        <h3>Information Gathering</h3>
+                        <div class="tool-form">
+                            <input type="text" id="osintTarget" placeholder="Target domain/organization">
+                            <select id="osintTool">
+                                <option value="theHarvester">theHarvester</option>
+                                <option value="recon-ng">Recon-ng</option>
+                                <option value="maltego">Maltego</option>
+                                <option value="shodan">Shodan</option>
+                            </select>
+                            <button onclick="generateOSINT()">Generate OSINT Commands</button>
+                            <textarea id="osintOutput" readonly placeholder="OSINT commands will appear here..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="tool-card">
+                        <h3>Social Media OSINT</h3>
+                        <div class="tool-form">
+                            <input type="text" id="socialTarget" placeholder="Username/Profile">
+                            <select id="socialPlatform">
+                                <option value="twitter">Twitter</option>
+                                <option value="linkedin">LinkedIn</option>
+                                <option value="facebook">Facebook</option>
+                                <option value="instagram">Instagram</option>
+                            </select>
+                            <button onclick="generateSocialOSINT()">Generate Social OSINT</button>
+                            <textarea id="socialOSINTOutput" readonly placeholder="Social media OSINT commands will appear here..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="tool-card">
+                        <h3>Email OSINT</h3>
+                        <div class="tool-form">
+                            <input type="text" id="emailTarget" placeholder="Email address or domain">
+                            <select id="emailTool">
+                                <option value="hunter">Hunter.io</option>
+                                <option value="haveibeenpwned">HaveIBeenPwned</option>
+                                <option value="dehashed">Dehashed</option>
+                                <option value="emailrep">EmailRep</option>
+                            </select>
+                            <button onclick="generateEmailOSINT()">Generate Email OSINT</button>
+                            <textarea id="emailOSINTOutput" readonly placeholder="Email OSINT commands will appear here..."></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Web Application Tab -->
+            <div id="webapp" class="tab-content">
+                <h2><i class="fas fa-globe"></i> Web Application Security</h2>
+                <div class="tools-grid">
+                    <div class="tool-card">
+                        <h3>Web Application Scanner</h3>
+                        <div class="tool-form">
+                            <input type="text" id="webappTarget" placeholder="Target URL (http://example.com)">
+                            <select id="webappScanner">
+                                <option value="nikto">Nikto</option>
+                                <option value="burpsuite">Burp Suite</option>
+                                <option value="owasp-zap">OWASP ZAP</option>
+                                <option value="wpscan">WPScan</option>
+                            </select>
+                            <button onclick="generateWebAppScan()">Generate Scan Commands</button>
+                            <textarea id="webappOutput" readonly placeholder="Web application scan commands will appear here..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="tool-card">
+                        <h3>API Security Testing</h3>
+                        <div class="tool-form">
+                            <input type="text" id="apiTarget" placeholder="API Endpoint URL">
+                            <select id="apiMethod">
+                                <option value="GET">GET Request</option>
+                                <option value="POST">POST Request</option>
+                                <option value="PUT">PUT Request</option>
+                                <option value="DELETE">DELETE Request</option>
+                            </select>
+                            <textarea id="apiHeaders" placeholder="Headers (JSON format)">{"Authorization": "Bearer token", "Content-Type": "application/json"}</textarea>
+                            <button onclick="generateAPITest()">Generate API Test</button>
+                            <textarea id="apiOutput" readonly placeholder="API testing commands will appear here..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="tool-card">
+                        <h3>CSRF Token Extractor</h3>
+                        <div class="tool-form">
+                            <input type="text" id="csrfURL" placeholder="Target URL with CSRF protection">
+                            <select id="csrfMethod">
+                                <option value="curl">cURL</option>
+                                <option value="python">Python Requests</option>
+                                <option value="burp">Burp Suite</option>
+                            </select>
+                            <button onclick="generateCSRFExtractor()">Generate CSRF Extractor</button>
+                            <textarea id="csrfOutput" readonly placeholder="CSRF token extraction code will appear here..."></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>&copy; 2024 RedTeam Arsenal - Professional RedTeam Tools Platform | Developed by 0x0806</p>
+            <p class="disclaimer">⚠️ For educational and authorized testing purposes only</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
